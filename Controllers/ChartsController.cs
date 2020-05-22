@@ -24,15 +24,32 @@ namespace market.Controllers
         {
             var categories = _context.Categories.Include(b => b.Markets).ToList();
 
-            List<object> catmarkets = new List<object>();
+            List<object> catMarkets = new List<object>();
 
-            catmarkets.Add(new[] { "Категорiя", "кiлькiсть магазинiв" });
+            catMarkets.Add(new[] { "Категорiя", "кiлькiсть магазинiв" });
 
             foreach (var c in categories)
             {
-                catmarkets.Add(new object[] { c.Name, c.Markets.Count() });
+                catMarkets.Add(new object[] { c.Name, c.Markets.Count() });
             }
-            return new JsonResult(catmarkets);
+            return new JsonResult(catMarkets);
+        }
+        [HttpGet("JsonData1")]
+        public JsonResult JsonData1()
+        {
+            var departments = _context.Departments.Include(b => b.Workers).ToList();
+
+            List<object> depWorkers = new List<object>();
+
+            depWorkers.Add(new[] { "r", "кiлькiсть магазинiв" });
+
+            foreach (var c in departments)
+            {
+                depWorkers.Add(new object[] { c.MarketId, c.Workers.Count() });
+            }
+            return new JsonResult(depWorkers);
         }
     }
 }
+
+
